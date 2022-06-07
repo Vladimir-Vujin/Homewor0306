@@ -1,18 +1,4 @@
 package domaci0606;
-/*
-* ·        AppointmentPage
-o   getter za facility select
-o   getter za apply for hospital readmission
-o   getter za radio dugme (trazeno po value atributu)
-§ xpath-u - kao parametar se prima value za trazeno radio dugme
-§ //*[@name='programs'][@value='"+ radioInputName +"']
-o   getter za visit date input
-o   getter za comment input
-o   getter za book appointment button
-
-
-Napomena: Datum se takodje postavlja preko metode sendKeys samo je potrebno datum uneti u formatu
- "dd/mm/yyyy" => npr: "21/09/2020" */
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

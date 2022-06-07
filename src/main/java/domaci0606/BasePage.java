@@ -3,11 +3,7 @@ package domaci0606;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-/*
-·        SummaryPage
-o   ima gettere za sve elemenete sa summary stranice koji nose informacije appointment-a
 
-* */
 public class BasePage {
 
     private WebDriver driver;

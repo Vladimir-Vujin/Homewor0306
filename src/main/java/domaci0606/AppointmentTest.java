@@ -5,10 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.sql.Driver;
 import java.time.Duration;
 
 public class AppointmentTest {
@@ -18,8 +17,6 @@ public class AppointmentTest {
     private LoginPage loginPage;
     private AppointmentPage appointmentPage;
     private AppointmentSummary appointmentSummary;
-    private String facility;
-    private boolean applyForHospitalReadmission;
 
     @BeforeClass
     public void beforeClass() {
@@ -40,7 +37,6 @@ public class AppointmentTest {
     @Test(priority = 1)
     public void loginWithDemo() {
         loginPage.makeAppoitnmentClick();
-        //loginPage.userLogin("John Doe", "ThisIsNotAPassword");
         loginPage.userLogin();
         Assert.assertTrue(appointmentPage.isFormPresented());
     }
@@ -52,27 +48,21 @@ public class AppointmentTest {
         appointmentPage.chosehealthCareProgram("Medicaid");
         appointmentPage.inputVisitDate("20/07/2022");
         appointmentPage.inputComment("No comment");
-
-        // NAŠAO SAM REŠENJE DA DOK JE STRANICA AKTIVNA SAČUVAM PODATAK U PROMENLJIVOJ
-        // PA GA ISKORISTIM U NAREDNOM TESTU U ASSERTU DA UPOREDI UNOS NEKOG ELEMENTA NA
-        // APPOINTMENT STRANICI SA REZULTATOM NA APPOINTMENT SUMMARY STARNICI ZA TAJ ELEMENT
-        facility = appointmentPage.getFacilityListElement();
-        // VIDI KAKO VRATITI OVAJ PODATAK IZ OBJEKTA KADA PREDJE NA DRUGU WEB STRANICU
-        applyForHospitalReadmission = appointmentPage.getApplyForHospitalReadmission();
-
         appointmentPage.clickBookAppointmentButton();
         Assert.assertEquals(driver.findElement(By.xpath("//*[@id=\"summary\"]/div/div/div[1]/h2")).getText(), "Appointment Confirmation");
     }
 
     @Test(priority = 3)
     public void checkInputData() {
-        // KADA ODAVDE ZOVEM getApplyForHospitalReadmission() IZBACUJE MI GREŠKU JER TA STRANICA
-        // VIŠE NIJE AKTIVNA I NE MOŽE DA PRONAĐE WEB ELEMENT
-        // VIDIM DA POSTOJI OBJEKAT appointmentPage ALI NE ZNAM KAKO DA IZ NJEGA IZVUČEM PODATAK
-        // ZA KONKRETNO SELEKTOVANI ELEMENT COMBOBOX-A
-        Assert.assertEquals(appointmentSummary.getFacility(), facility);
-        Assert.assertEquals(appointmentSummary.getHospitalReadmission(), applyForHospitalReadmission);
-        // I proverite da li se unosi sa appointment forme uklapaju sa podacima sa summary stranice
-        // katalon-demo-cura.herokuapp.com
+        Assert.assertEquals(appointmentSummary.getFacility(), "Hongkong CURA Healthcare Center");
+        Assert.assertEquals(appointmentSummary.getHospitalReadmission(), true);
+        Assert.assertEquals(appointmentSummary.getProgram(), "Medicaid");
+        Assert.assertEquals(appointmentSummary.getVisitDate(), "20/07/2022");
+        Assert.assertEquals(appointmentSummary.getComment(), "No comment");
+    }
+
+    @AfterClass
+    public void afterClass(){
+        driver.close();
     }
 }

@@ -4,10 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-/*
-* Napisati program koji testira funkcionalnost zakazivanja na satju https://katalon-demo-cura.herokuapp.com/. Od klasa je potrebno:
-·        LoginPage – dodati neophodne metode
-*/
 public class LoginPage extends BasePage{
 
     private By usernameInputBox = By.id("txt-username");
@@ -22,16 +18,10 @@ public class LoginPage extends BasePage{
         super(driver, driverWait);
     }
 
-    /*public void inputUsername(String username){
-        getDriver().findElement(usernameInputBox).sendKeys(username);
-    }*/
     public void inputUsername(){
         getDriver().findElement(usernameInputBox).sendKeys(getDriver().findElement(getLoginName).getAttribute("value"));
     }
 
-    /*public void inputPassword(String password){
-        getDriver().findElement(passwordInputBox).sendKeys(password);
-    }*/
     public void inputPassword(){
         getDriver().findElement(passwordInputBox).sendKeys(getDriver().findElement(getPassword).getAttribute("value"));
     }
@@ -40,10 +30,7 @@ public class LoginPage extends BasePage{
         getDriver().findElement(loginButton).click();
     }
 
-    //public void userLogin(String username, String password){
     public void userLogin(){
-        //inputUsername(username);
-        //inputPassword(password);
         inputUsername();
         inputPassword();
         loginClick();
